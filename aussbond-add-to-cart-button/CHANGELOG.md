@@ -1,5 +1,10 @@
 # Changelog
 
+## Compatibility review - 2026-05-30
+
+- Added a WordPress 7 compatibility report.
+- Refreshed compatibility documentation with WordPress 7.0 release and PHP compatibility references.
+
 ## 1.0.6 - 2026-05-22
 
 - Hid duplicate visible variation attribute labels such as `Size` by default when the custom attribute heading is used.

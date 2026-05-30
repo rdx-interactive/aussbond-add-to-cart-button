@@ -6,7 +6,7 @@ A production-ready WooCommerce add-to-cart Elementor widget for simple and varia
 
 ## Compatibility
 
-Verified against current public compatibility targets on May 22, 2026:
+Verified against current public compatibility targets on May 30, 2026:
 
 - PHP: 7.4 or newer; compatible with PHP 8.1+
 - WordPress: requires 6.6+, tested up to 7.0
@@ -16,6 +16,8 @@ Verified against current public compatibility targets on May 22, 2026:
 Official references checked:
 
 - WordPress 7.0 release documentation: https://wordpress.org/documentation/wordpress-version/version-7-0/
+- WordPress versions list: https://wordpress.org/documentation/article/wordpress-versions/
+- WordPress PHP compatibility handbook: https://make.wordpress.org/core/handbook/references/php-compatibility-and-wordpress-versions/
 - WooCommerce WordPress.org plugin page: https://wordpress.org/plugins/woocommerce/
 - Elementor WordPress.org plugin page: https://wordpress.org/plugins/elementor/
 
@@ -76,3 +78,4 @@ This plugin follows semantic versioning.
 - `assets/js/aussbond-add-to-cart-button.js`: Frontend AJAX and variation behavior.
 - `assets/css/aussbond-add-to-cart-button.css`: Default widget styling.
 - `SECURITY-TEST-REPORT.md`: Basic security review notes.
+- `WORDPRESS-7-COMPATIBILITY.md`: WordPress 7 compatibility review notes.
