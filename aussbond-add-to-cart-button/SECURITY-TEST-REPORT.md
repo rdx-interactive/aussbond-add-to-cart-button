@@ -1,0 +1,38 @@
+# Basic Security Test Report
+
+Plugin: Aussbond Add to Cart Button
+Version: 1.0.6
+Date: 2026-05-22
+
+## Scope
+
+Reviewed the custom Elementor widget, WooCommerce AJAX add-to-cart handler, frontend JavaScript, and packaged plugin metadata.
+
+## Checks Performed
+
+| Area | Result | Notes |
+| --- | --- | --- |
+| Direct file access | Pass | PHP files use `defined( 'ABSPATH' ) || exit;`; directory index files are present. |
+| AJAX nonce verification | Pass | `check_ajax_referer()` is required for add-to-cart AJAX requests. |
+| Product ID validation | Pass | Product IDs are sanitized with `absint()` and resolved through `wc_get_product()`. |
+| Variation ID validation | Pass | Variation must be a `WC_Product_Variation` and must belong to the posted parent product. |
+| Variation attribute validation | Pass | Posted `attribute_*` values are sanitized and compared against selected variation attributes. |
+| Quantity validation | Pass | Quantity is normalized through WooCommerce stock amount handling and product purchase limits. |
+| Stock validation | Pass | Product/variation purchasability, stock status, and enough-stock checks are enforced before cart insertion. |
+| Duplicate AJAX submissions | Pass | Identical requests are throttled briefly with a transient and client-side pending-state lock. |
+| Output escaping | Pass | Custom output uses WordPress escaping helpers; WooCommerce-rendered HTML is limited to WooCommerce notice/stock/form output. |
+| Mini cart update safety | Pass | Fragments are generated through WooCommerce `woocommerce_mini_cart()` and filtered through the standard fragment filter. |
+| Privilege boundaries | Pass | Public add-to-cart behavior is available to logged-in and guest customers, matching WooCommerce cart behavior. |
+
+## Residual Risk
+
+- A full dynamic security scan should be run inside the target WordPress installation before launch because theme code, other WooCommerce extensions, and custom cart filters can alter add-to-cart validation.
+- The plugin does not collect payment, store credentials, create users, edit orders, or process checkout data.
+
+## Recommended Pre-Launch Tests
+
+1. Test simple product add-to-cart with stock enabled and disabled.
+2. Test variable products with valid, invalid, out-of-stock, and backorder-enabled variations.
+3. Test guest and logged-in customers.
+4. Confirm the active theme mini cart updates correctly.
+5. Confirm any third-party WooCommerce add-to-cart validation plugins still block restricted products.

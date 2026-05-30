@@ -1,0 +1,231 @@
+.aussbond-atc {
+	width: 100%;
+}
+
+.aussbond-atc,
+.aussbond-atc * {
+	box-sizing: border-box;
+}
+
+.aussbond-atc-form {
+	margin: 0;
+	width: 100%;
+}
+
+.aussbond-atc .aussbond-atc-main-heading.aussbond-atc-main-heading {
+	color: #111827;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.25;
+	margin: 0 0 18px;
+	text-align: left;
+}
+
+.aussbond-atc-notices {
+	margin: 0 0 14px;
+}
+
+.aussbond-atc-notices:empty {
+	display: none;
+}
+
+.aussbond-atc-simple-attributes {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	gap: 8px 16px;
+	margin: 0 0 16px;
+}
+
+.aussbond-atc-simple-attributes dt,
+.aussbond-atc-simple-attributes dd {
+	margin: 0;
+	min-width: 0;
+}
+
+.aussbond-atc-simple-attributes dt {
+	font-weight: 600;
+}
+
+.aussbond-atc-attributes {
+	margin: 0 0 16px;
+}
+
+.aussbond-atc .aussbond-atc-attributes-heading.aussbond-atc-attributes-heading {
+	color: #111827;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.35;
+	margin: 0 0 10px;
+	text-align: left;
+}
+
+.aussbond-atc .variations {
+	border: 0;
+	border-collapse: collapse;
+	margin: 0;
+	width: 100%;
+}
+
+.aussbond-atc .variations tbody,
+.aussbond-atc .variations tr,
+.aussbond-atc .variations th,
+.aussbond-atc .variations td {
+	display: block;
+	padding: 0;
+	text-align: left;
+	width: 100%;
+}
+
+.aussbond-atc .variations tr + tr {
+	margin-top: 12px;
+}
+
+.aussbond-atc .aussbond-atc-variation-label-hidden {
+	height: 0;
+	line-height: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.aussbond-atc-attribute-label {
+	display: block;
+	font-weight: 600;
+	margin: 0 0 6px;
+}
+
+.aussbond-atc .aussbond-atc-screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+}
+
+.aussbond-atc .variations select {
+	appearance: none;
+	background-color: #fff;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	color: #111827;
+	display: block;
+	min-height: 44px;
+	padding: 9px 38px 9px 12px;
+	width: 100%;
+}
+
+.aussbond-atc .reset_variations {
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.aussbond-atc-purchase-row {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	justify-content: flex-start;
+}
+
+.aussbond-atc-quantity .quantity {
+	align-items: center;
+	display: inline-flex;
+	margin: 0;
+}
+
+.aussbond-atc-quantity .qty {
+	-moz-appearance: auto;
+	appearance: auto;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	min-height: 44px;
+	padding: 8px 10px;
+	width: 82px;
+}
+
+.aussbond-atc-quantity .qty::-webkit-inner-spin-button,
+.aussbond-atc-quantity .qty::-webkit-outer-spin-button {
+	-webkit-appearance: inner-spin-button;
+	display: block;
+	margin: 0;
+	opacity: 1;
+}
+
+.aussbond-atc-actions {
+	display: flex;
+	flex: 0 1 auto;
+	min-width: 0;
+}
+
+.aussbond-atc .aussbond-atc-button.aussbond-atc-button,
+.woocommerce .aussbond-atc .aussbond-atc-button.button,
+.woocommerce .aussbond-atc .aussbond-atc-button.button.alt,
+.elementor-editor-active .aussbond-atc .aussbond-atc-button.aussbond-atc-button {
+	align-items: center;
+	background-color: #111827 !important;
+	border: 0;
+	border-radius: 6px;
+	box-shadow: none;
+	color: #fff !important;
+	cursor: pointer;
+	display: inline-flex;
+	font-weight: 600;
+	justify-content: center;
+	line-height: 1.2;
+	min-height: 44px;
+	padding: 12px 22px;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+	white-space: normal;
+}
+
+.aussbond-atc .aussbond-atc-button.aussbond-atc-button:hover,
+.aussbond-atc .aussbond-atc-button.aussbond-atc-button:focus,
+.woocommerce .aussbond-atc .aussbond-atc-button.button:hover,
+.woocommerce .aussbond-atc .aussbond-atc-button.button:focus,
+.woocommerce .aussbond-atc .aussbond-atc-button.button.alt:hover,
+.woocommerce .aussbond-atc .aussbond-atc-button.button.alt:focus,
+.elementor-editor-active .aussbond-atc .aussbond-atc-button.aussbond-atc-button:hover,
+.elementor-editor-active .aussbond-atc .aussbond-atc-button.aussbond-atc-button:focus {
+	background-color: #2563eb !important;
+	color: #fff !important;
+}
+
+.aussbond-atc .aussbond-atc-button.disabled,
+.aussbond-atc .aussbond-atc-button:disabled {
+	cursor: not-allowed;
+	opacity: 0.62;
+}
+
+.aussbond-atc .aussbond-atc-button.is-loading {
+	position: relative;
+}
+
+.aussbond-atc .woocommerce-variation {
+	margin: 0 0 12px;
+}
+
+.aussbond-atc .stock {
+	margin: 12px 0 0;
+}
+
+@media (max-width: 480px) {
+	.aussbond-atc-simple-attributes {
+		grid-template-columns: 1fr;
+	}
+
+	.aussbond-atc-purchase-row {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.aussbond-atc-quantity,
+	.aussbond-atc-actions {
+		width: 100%;
+	}
+}

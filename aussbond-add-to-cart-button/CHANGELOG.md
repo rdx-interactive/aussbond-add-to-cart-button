@@ -1,0 +1,53 @@
+# Changelog
+
+## 1.0.6 - 2026-05-22
+
+- Hid duplicate visible variation attribute labels such as `Size` by default when the custom attribute heading is used.
+- Added an Elementor switch to show individual attribute labels again if needed.
+- Kept the hidden labels available for screen readers.
+
+## 1.0.5 - 2026-05-22
+
+- Added Elementor content controls for the main heading text and attribute field heading text.
+- Added main heading controls for color, explicit font size, typography, margin, and alignment.
+- Added attribute heading controls for color, explicit font size, typography, spacing, and alignment.
+- Fixed frontend heading font-size output with stronger scoped selectors.
+- Kept quantity number input up/down arrows visible instead of only on hover.
+- Improved Add to Cart button size and alignment behavior by avoiding mobile CSS overrides that fought Elementor controls.
+
+## 1.0.4 - 2026-05-22
+
+- Fixed WooCommerce `.button.alt` purple background overriding the Aussbond button style.
+- Added stronger scoped button selectors for Elementor preview and frontend output.
+- Added Elementor controls for button height and box shadow.
+- Improved button style selectors for background, text, hover colors, typography, padding, margin, border, radius, width, and shadow.
+- Added responsive layout controls for inline/stacked quantity and button layout, left/center/right alignment, and gap spacing.
+- Improved default CSS alignment between the quantity selector and Add to Cart button.
+
+## 1.0.3 - 2026-05-22
+
+- Fixed variation-level managed-stock add-to-cart behavior.
+- AJAX now normalizes the selected variation ID and selected attributes before calling WooCommerce cart APIs.
+- Variation stock handling now honors variation stock quantity, stock status, backorders, purchasability, enough-stock checks, and sold-individually rules.
+- Frontend button state now supports Add to Cart, Back Order, and Out of Stock states for managed-stock variations.
+
+## 1.0.2 - 2026-05-22
+
+- Added a scoped WooCommerce stock filter during AJAX add-to-cart so backorder-enabled products and variations are accepted even if their saved stock status remains `outofstock`.
+- Added backorder-enabled variations back into the Elementor variation data when WooCommerce omits them due to stock status.
+- Deferred custom variation button state updates until after WooCommerce's variation handler finishes.
+
+## 1.0.1 - 2026-05-22
+
+- Fixed add-to-cart behavior for managed-stock products and variations where backorders are allowed.
+- Backorder-enabled products now remain addable even when stock status is not plain `instock`.
+- Variation button state now uses a dedicated addable flag instead of disabling only from `is_in_stock`.
+
+## 1.0.0 - 2026-05-22
+
+- Initial production release.
+- Added Elementor widget `Aussbond Add to Cart Button`.
+- Added support for WooCommerce simple and variable products.
+- Added variation attribute dropdowns, quantity selection, AJAX add-to-cart, WooCommerce notices, mini-cart fragment refreshes, and Elementor style controls.
+- Added nonce, input sanitization, output escaping, variation validation, stock validation, and duplicate-submission throttling.
+- Hardened activation compatibility by lazy-loading the Elementor widget class and avoiding PHP 8-only syntax in the bootstrap path.
