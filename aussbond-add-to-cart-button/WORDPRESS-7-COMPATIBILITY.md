@@ -1,7 +1,7 @@
 # WordPress 7 Compatibility Report
 
-Plugin: Aussbond ACB
-Version checked: 1.0.7
+Plugin: Aussbond Add-to-Cart Button
+Version checked: 1.0.8
 Check date: 2026-05-30
 
 ## Compatibility Result

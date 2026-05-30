@@ -1,7 +1,7 @@
 # Basic Security Test Report
 
-Plugin: Aussbond ACB
-Version: 1.0.7
+Plugin: Aussbond Add-to-Cart Button
+Version: 1.0.8
 Date: 2026-05-22
 
 Latest vulnerability check: 2026-05-30. See `VULNERABILITY-CHECK-2026-05-30.md`.

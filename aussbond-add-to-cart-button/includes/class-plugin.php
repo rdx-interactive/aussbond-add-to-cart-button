@@ -147,7 +147,7 @@ final class Plugin {
 			esc_html(
 				sprintf(
 					/* translators: %s: Missing plugin names. */
-					__( 'Aussbond ACB requires the following active plugins: %s.', 'aussbond-add-to-cart-button' ),
+					__( 'Aussbond Add-to-Cart Button requires the following active plugins: %s.', 'aussbond-add-to-cart-button' ),
 					implode( ', ', $missing )
 				)
 			)

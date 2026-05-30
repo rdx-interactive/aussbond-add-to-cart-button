@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8 - 2026-05-30
+
+- Renamed the user-facing plugin name and Elementor widget title to `Aussbond Add-to-Cart Button`.
+- Kept the plugin folder, main file, text domain, and slug unchanged for install/update continuity.
+
 ## 1.0.7 - 2026-05-30
 
 - Renamed the user-facing plugin name and Elementor widget title to `Aussbond ACB`.
