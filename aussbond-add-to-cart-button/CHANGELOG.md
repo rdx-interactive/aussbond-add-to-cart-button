@@ -4,6 +4,7 @@
 
 - Added a WordPress 7 compatibility report.
 - Refreshed compatibility documentation with WordPress 7.0 release and PHP compatibility references.
+- Added a package-level WordPress vulnerability check report with public WPScan/Wordfence context.
 
 ## 1.0.6 - 2026-05-22
 

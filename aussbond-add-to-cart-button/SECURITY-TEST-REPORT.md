@@ -4,6 +4,8 @@ Plugin: Aussbond Add to Cart Button
 Version: 1.0.6
 Date: 2026-05-22
 
+Latest vulnerability check: 2026-05-30. See `VULNERABILITY-CHECK-2026-05-30.md`.
+
 ## Scope
 
 Reviewed the custom Elementor widget, WooCommerce AJAX add-to-cart handler, frontend JavaScript, and packaged plugin metadata.
@@ -23,6 +25,8 @@ Reviewed the custom Elementor widget, WooCommerce AJAX add-to-cart handler, fron
 | Output escaping | Pass | Custom output uses WordPress escaping helpers; WooCommerce-rendered HTML is limited to WooCommerce notice/stock/form output. |
 | Mini cart update safety | Pass | Fragments are generated through WooCommerce `woocommerce_mini_cart()` and filtered through the standard fragment filter. |
 | Privilege boundaries | Pass | Public add-to-cart behavior is available to logged-in and guest customers, matching WooCommerce cart behavior. |
+| Static vulnerability pattern scan | Pass | No direct SQL, command execution, file upload/write, unsafe deserialization, or remote request paths were found. |
+| Public vulnerability database check | Pass | No public WPScan/Wordfence search result was found for the custom plugin slug at the time of review. |
 
 ## Residual Risk
 

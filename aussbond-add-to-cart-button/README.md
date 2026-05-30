@@ -79,3 +79,4 @@ This plugin follows semantic versioning.
 - `assets/css/aussbond-add-to-cart-button.css`: Default widget styling.
 - `SECURITY-TEST-REPORT.md`: Basic security review notes.
 - `WORDPRESS-7-COMPATIBILITY.md`: WordPress 7 compatibility review notes.
+- `VULNERABILITY-CHECK-2026-05-30.md`: Static vulnerability check and public vulnerability database review notes.
