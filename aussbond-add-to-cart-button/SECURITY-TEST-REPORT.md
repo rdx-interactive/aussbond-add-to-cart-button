@@ -2,7 +2,7 @@
 
 Plugin: Aussbond Add-to-Cart Button
 Version: 1.0.8
-Date: 2026-05-22
+Date: 2026-05-30
 
 Latest vulnerability check: 2026-05-30. See `VULNERABILITY-CHECK-2026-05-30.md`.
 
@@ -27,11 +27,14 @@ Reviewed the custom Elementor widget, WooCommerce AJAX add-to-cart handler, fron
 | Privilege boundaries | Pass | Public add-to-cart behavior is available to logged-in and guest customers, matching WooCommerce cart behavior. |
 | Static vulnerability pattern scan | Pass | No direct SQL, command execution, file upload/write, unsafe deserialization, or remote request paths were found. |
 | Public vulnerability database check | Pass | No public WPScan/Wordfence search result was found for the custom plugin slug at the time of review. |
+| JavaScript syntax check | Pass | `node --check assets/js/aussbond-add-to-cart-button.js` completed successfully. |
+| Installable ZIP integrity | Pass | `unzip -t aussbond-add-to-cart-button-v1.0.8.zip` completed successfully. |
 
 ## Residual Risk
 
 - A full dynamic security scan should be run inside the target WordPress installation before launch because theme code, other WooCommerce extensions, and custom cart filters can alter add-to-cart validation.
 - The plugin does not collect payment, store credentials, create users, edit orders, or process checkout data.
+- PHP lint, WP-CLI checks, Composer audit, and WPScan CLI checks were not run because `php`, `wp`, `composer`, and `wpscan` are not installed on this machine.
 
 ## Recommended Pre-Launch Tests
 

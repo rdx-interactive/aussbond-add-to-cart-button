@@ -8,7 +8,7 @@ Check date: 2026-05-30
 
 The plugin is marked compatible with WordPress 7.0 at the package/static-review level.
 
-WordPress 7.0 was released on 2026-05-20. The plugin already declares:
+WordPress 7.0 was released on 2026-05-20. The compatibility review was re-run on 2026-05-30 after updating the package metadata. The plugin already declares:
 
 - Requires at least: 6.6
 - Tested up to: 7.0
@@ -36,6 +36,7 @@ WordPress 7.0 was released on 2026-05-20. The plugin already declares:
 | JavaScript syntax check | Pass |
 | Installable ZIP integrity check | Pass |
 | PHP lint with local `php -l` | Not run; local PHP CLI is not installed |
+| WP-CLI plugin smoke test | Not run; local WP-CLI is not installed |
 
 ## Remaining Recommendation
 

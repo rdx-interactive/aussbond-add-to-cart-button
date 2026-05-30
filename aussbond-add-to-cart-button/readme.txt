@@ -1,5 +1,6 @@
 === Aussbond Add-to-Cart Button ===
 Contributors: aussbond
+Developer: RDX Interactive
 Tags: woocommerce, elementor, add to cart, ajax cart, variable products
 Requires at least: 6.6
 Tested up to: 7.0
