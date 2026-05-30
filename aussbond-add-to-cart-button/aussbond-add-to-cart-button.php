@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Aussbond Add to Cart Button
+ * Plugin Name: Aussbond ACB
  * Plugin URI: https://aussbond.com/
  * Description: Adds a customizable Elementor WooCommerce add-to-cart widget for simple and variable products.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Requires at least: 6.6
  * Tested up to: 7.0
  * Requires PHP: 7.4
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AUSSBOND_ATC_VERSION', '1.0.6' );
+define( 'AUSSBOND_ATC_VERSION', '1.0.7' );
 define( 'AUSSBOND_ATC_FILE', __FILE__ );
 define( 'AUSSBOND_ATC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AUSSBOND_ATC_URL', plugin_dir_url( __FILE__ ) );

@@ -30,7 +30,7 @@ final class Elementor_Widget extends Widget_Base {
 	 * Elementor widget title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Aussbond Add to Cart Button', 'aussbond-add-to-cart-button' );
+		return esc_html__( 'Aussbond ACB', 'aussbond-add-to-cart-button' );
 	}
 
 	/**

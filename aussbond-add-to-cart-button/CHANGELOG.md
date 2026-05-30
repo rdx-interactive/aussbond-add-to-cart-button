@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7 - 2026-05-30
+
+- Renamed the user-facing plugin name and Elementor widget title to `Aussbond ACB`.
+- Kept the plugin folder, main file, text domain, and slug unchanged for install/update continuity.
+
 ## Compatibility review - 2026-05-30
 
 - Added a WordPress 7 compatibility report.
@@ -52,7 +57,7 @@
 ## 1.0.0 - 2026-05-22
 
 - Initial production release.
-- Added Elementor widget `Aussbond Add to Cart Button`.
+- Added Elementor widget `Aussbond ACB`.
 - Added support for WooCommerce simple and variable products.
 - Added variation attribute dropdowns, quantity selection, AJAX add-to-cart, WooCommerce notices, mini-cart fragment refreshes, and Elementor style controls.
 - Added nonce, input sanitization, output escaping, variation validation, stock validation, and duplicate-submission throttling.

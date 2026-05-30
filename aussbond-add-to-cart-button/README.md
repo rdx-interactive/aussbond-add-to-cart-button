@@ -1,6 +1,6 @@
-# Aussbond Add to Cart Button
+# Aussbond ACB
 
-Version: 1.0.6
+Version: 1.0.7
 
 A production-ready WooCommerce add-to-cart Elementor widget for simple and variable products. The widget renders product options, quantity controls, a customizable add-to-cart button, AJAX cart submission, WooCommerce notices, and mini-cart fragment refreshes without a page reload.
 
@@ -24,14 +24,14 @@ Official references checked:
 ## Installation
 
 1. In WordPress admin, go to Plugins > Add New > Upload Plugin.
-2. Upload `aussbond-add-to-cart-button-v1.0.6.zip`.
+2. Upload `aussbond-add-to-cart-button-v1.0.7.zip`.
 3. Activate the plugin.
 4. Make sure WooCommerce and Elementor are active.
 
 ## Usage
 
 1. Edit a page, product template, or product page with Elementor.
-2. Search for `Aussbond Add to Cart Button`.
+2. Search for `Aussbond ACB`.
 3. Drag the widget into the layout.
 4. Leave Product ID as `0` to use the current product, or enter a specific WooCommerce product ID.
 5. Customize button text, backorder text, colors, typography, spacing, border, width, alignment, quantity field style, and attribute field style from the Elementor panel.
@@ -61,6 +61,7 @@ The plugin includes:
 
 This plugin follows semantic versioning.
 
+- `1.0.7`: Renamed the user-facing plugin and Elementor widget display name to `Aussbond ACB` while keeping the plugin slug stable.
 - `1.0.6`: Hid duplicate visible variation attribute labels like “Size” by default when the custom attribute heading is used, with an Elementor switch to show them if needed.
 - `1.0.5`: Added editable main heading and attribute heading controls, fixed heading font-size frontend output, kept quantity number arrows visible, and improved button size/alignment controls.
 - `1.0.4`: Fixed WooCommerce purple button override, added full Elementor button styling controls, and added responsive quantity/button layout controls.
