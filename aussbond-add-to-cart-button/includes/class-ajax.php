@@ -183,6 +183,16 @@ final class Ajax {
 			$attributes[ $name ] = wc_clean( $value );
 		}
 
+		foreach ( $_POST as $name => $value ) {
+			$name = sanitize_key( $name );
+
+			if ( '' === $name || 0 !== strpos( $name, 'attribute_' ) || ! is_scalar( $value ) ) {
+				continue;
+			}
+
+			$attributes[ $name ] = wc_clean( wp_unslash( $value ) );
+		}
+
 		return $attributes;
 	}
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.14 - 2026-07-21
+
+- Posted selected variation attributes as top-level WooCommerce form fields such as `attribute_pa_size` in addition to the plugin's nested `attributes` payload.
+- Updated server-side attribute sanitization to accept both native top-level WooCommerce variation fields and the nested AJAX attribute payload.
+- Improves compatibility with wholesale, pricing, and validation plugins that inspect the native WooCommerce request fields.
+
 ## 1.0.13 - 2026-07-21
 
 - Added a lightweight AJAX nonce refresh endpoint for the current visitor/session.

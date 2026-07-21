@@ -244,16 +244,22 @@
 		var productId = $form.find( '[name="product_id"]' ).first().val() || $form.data( 'product-id' ) || 0;
 		var variation = resolveSelectedVariation( $form );
 		var variationId = $form.find( '[name="variation_id"]' ).first().val() || 0;
-
-		return {
+		var attributes = collectAttributes( $form );
+		var payload = {
 			action: config.action || 'aussbond_atc_add_to_cart',
 			nonce: config.nonce || '',
 			'add-to-cart': productId,
 			product_id: productId,
 			variation_id: variation && variation.variation_id ? variation.variation_id : variationId,
 			quantity: $form.find( '[name="quantity"]' ).first().val() || 1,
-			attributes: collectAttributes( $form )
+			attributes: attributes
 		};
+
+		$.each( attributes, function ( name, value ) {
+			payload[ name ] = value;
+		} );
+
+		return payload;
 	}
 
 	function validateBeforeSubmit( $form, payload ) {
