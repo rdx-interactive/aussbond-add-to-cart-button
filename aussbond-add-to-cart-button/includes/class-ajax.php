@@ -153,6 +153,20 @@ final class Ajax {
 			$this->send_error_from_notices();
 		}
 
+		WC()->cart->calculate_totals();
+
+		if ( WC()->session ) {
+			WC()->session->set_customer_session_cookie( true );
+		}
+
+		if ( method_exists( WC()->cart, 'set_session' ) ) {
+			WC()->cart->set_session();
+		}
+
+		if ( method_exists( WC()->cart, 'maybe_set_cart_cookies' ) ) {
+			WC()->cart->maybe_set_cart_cookies();
+		}
+
 		do_action( 'woocommerce_ajax_added_to_cart', $product_id );
 
 		wc_add_to_cart_message( array( $product_id => $quantity ), true );

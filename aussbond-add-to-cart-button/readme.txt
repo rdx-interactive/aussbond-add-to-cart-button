@@ -5,7 +5,7 @@ Tags: woocommerce, elementor, add to cart, ajax cart, variable products
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.15
+Stable tag: 1.0.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ No. Add-to-cart requests are submitted through secure WordPress AJAX.
 Yes. WooCommerce cart fragments are refreshed after successful AJAX add-to-cart requests.
 
 == Changelog ==
+
+= 1.0.16 =
+
+Explicitly persists WooCommerce cart totals, session, and cart cookies after successful AJAX add-to-cart to prevent accepted cart items from disappearing on the cart page.
 
 = 1.0.15 =
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.16 - 2026-07-21
+
+- Explicitly recalculates cart totals after successful AJAX add-to-cart.
+- Forces the WooCommerce customer session cookie to be set for the current visitor.
+- Explicitly writes the WooCommerce cart session and cart cookies before returning the AJAX success response.
+
 ## 1.0.15 - 2026-07-21
 
 - Added a logged-in customer compatibility mode that allows the browser to submit the native WooCommerce product form instead of intercepting it for custom AJAX.
