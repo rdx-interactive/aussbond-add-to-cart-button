@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.10 - 2026-07-21
+
+- Fixed AJAX add-to-cart action registration on live product pages by registering the AJAX handler whenever WooCommerce is available.
+- Removed the unnecessary Elementor dependency from AJAX bootstrapping, so `admin-ajax.php` requests do not return WordPress's plain `0` response when Elementor has not finished loading.
+- Kept Elementor dependency checks for widget registration and admin notices.
+
 ## 1.0.9 - 2026-07-21
 
 - Fixed simple-product AJAX add-to-cart compatibility by calling WooCommerce's validation filter with the same arguments WooCommerce uses for simple products.

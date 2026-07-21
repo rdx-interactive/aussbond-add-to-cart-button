@@ -57,11 +57,9 @@ final class Plugin {
 	 * Start runtime services when dependencies are present.
 	 */
 	public function boot(): void {
-		if ( ! $this->dependencies_met() ) {
-			return;
+		if ( $this->woocommerce_available() ) {
+			Ajax::instance();
 		}
-
-		Ajax::instance();
 	}
 
 	/**
@@ -158,8 +156,15 @@ final class Plugin {
 	 * Check runtime dependencies.
 	 */
 	private function dependencies_met(): bool {
-		return class_exists( 'WooCommerce' )
+		return $this->woocommerce_available()
 			&& did_action( 'elementor/loaded' )
 			&& class_exists( '\Elementor\Widget_Base' );
+	}
+
+	/**
+	 * Check whether WooCommerce is available for frontend/AJAX cart services.
+	 */
+	private function woocommerce_available(): bool {
+		return class_exists( 'WooCommerce' );
 	}
 }
