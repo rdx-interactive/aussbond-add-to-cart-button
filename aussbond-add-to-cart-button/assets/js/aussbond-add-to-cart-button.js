@@ -389,19 +389,7 @@
 					return;
 				}
 
-				if ( config.useNativeSubmit ) {
-					resolveSelectedVariation( $( form ) );
-					return;
-				}
-
-				event.preventDefault();
-				event.stopPropagation();
-
-				if ( event.stopImmediatePropagation ) {
-					event.stopImmediatePropagation();
-				}
-
-				handleSubmit( $( form ) );
+				resolveSelectedVariation( $( form ) );
 			},
 			true
 		);

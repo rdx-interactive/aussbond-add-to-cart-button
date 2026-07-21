@@ -1,7 +1,7 @@
 # WordPress 7 Compatibility Report
 
 Plugin: Aussbond Add-to-Cart Button
-Version checked: 1.0.16
+Version checked: 1.0.17
 Check date: 2026-05-30
 
 ## Compatibility Result

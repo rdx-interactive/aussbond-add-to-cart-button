@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.17 - 2026-07-21
+
+- Stopped intercepting the product form submit event for custom AJAX.
+- All customers now submit through WooCommerce's native product-page add-to-cart flow.
+- The frontend still resolves the selected variation immediately before submit, so the native request contains the correct variation ID.
+
 ## 1.0.16 - 2026-07-21
 
 - Explicitly recalculates cart totals after successful AJAX add-to-cart.
