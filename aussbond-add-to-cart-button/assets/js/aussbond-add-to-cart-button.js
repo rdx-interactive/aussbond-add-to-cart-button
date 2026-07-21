@@ -50,6 +50,10 @@
 				$form.wc_variation_form();
 				$form.trigger( 'check_variations' );
 			}
+
+			window.setTimeout( function () {
+				resolveSelectedVariation( $form );
+			}, 0 );
 		} else {
 			updateSimpleButton( $form );
 		}
@@ -162,15 +166,91 @@
 		return attributes;
 	}
 
+	function getVariationData( $form ) {
+		var variations = $form.data( 'product_variations' );
+
+		if ( variations ) {
+			return variations;
+		}
+
+		var raw = $form.attr( 'data-product_variations' );
+
+		if ( ! raw ) {
+			return [];
+		}
+
+		try {
+			variations = JSON.parse( raw );
+			$form.data( 'product_variations', variations );
+			return variations;
+		} catch ( error ) {
+			return [];
+		}
+	}
+
+	function findMatchingVariation( $form, attributes ) {
+		var variations = getVariationData( $form );
+
+		for ( var index = 0; index < variations.length; index++ ) {
+			var variation = variations[ index ];
+			var variationAttributes = variation.attributes || {};
+			var matches = true;
+
+			for ( var name in variationAttributes ) {
+				if ( ! Object.prototype.hasOwnProperty.call( variationAttributes, name ) ) {
+					continue;
+				}
+
+				if ( variationAttributes[ name ] && String( variationAttributes[ name ] ) !== String( attributes[ name ] || '' ) ) {
+					matches = false;
+					break;
+				}
+			}
+
+			if ( matches && variation.variation_id ) {
+				return variation;
+			}
+		}
+
+		return null;
+	}
+
+	function resolveSelectedVariation( $form ) {
+		if ( ! isVariableForm( $form ) ) {
+			return null;
+		}
+
+		var variationId = $form.find( '[name="variation_id"]' ).first().val();
+		var selectedVariation = $form.data( 'aussbondSelectedVariation' ) || null;
+
+		if ( variationId && '0' !== String( variationId ) && selectedVariation ) {
+			return selectedVariation;
+		}
+
+		var attributes = collectAttributes( $form );
+		var variation = findMatchingVariation( $form, attributes );
+
+		if ( variation ) {
+			$form.find( '[name="variation_id"]' ).first().val( variation.variation_id );
+			$form.data( 'aussbondSelectedVariation', variation );
+			updateVariableButton( $form, variation );
+			return variation;
+		}
+
+		return null;
+	}
+
 	function collectPayload( $form ) {
 		var productId = $form.find( '[name="product_id"]' ).first().val() || $form.data( 'product-id' ) || 0;
+		var variation = resolveSelectedVariation( $form );
+		var variationId = $form.find( '[name="variation_id"]' ).first().val() || 0;
 
 		return {
 			action: config.action || 'aussbond_atc_add_to_cart',
 			nonce: config.nonce || '',
 			'add-to-cart': productId,
 			product_id: productId,
-			variation_id: $form.find( '[name="variation_id"]' ).first().val() || 0,
+			variation_id: variation && variation.variation_id ? variation.variation_id : variationId,
 			quantity: $form.find( '[name="quantity"]' ).first().val() || 1,
 			attributes: collectAttributes( $form )
 		};

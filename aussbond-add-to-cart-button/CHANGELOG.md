@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.11 - 2026-07-21
+
+- Fixed variable-product add-to-cart when a variation attribute is already selected but the hidden WooCommerce `variation_id` field is still `0`.
+- Added a frontend fallback that resolves the selected variation from the embedded `data-product_variations` payload before AJAX validation/submission.
+- Updates the hidden `variation_id` and button state from the resolved variation so selected variable products can be added reliably.
+
 ## 1.0.10 - 2026-07-21
 
 - Fixed AJAX add-to-cart action registration on live product pages by registering the AJAX handler whenever WooCommerce is available.
