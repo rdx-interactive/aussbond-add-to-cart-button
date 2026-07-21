@@ -944,6 +944,7 @@ final class Elementor_Widget extends Widget_Base {
 		}
 
 		echo '<form class="cart aussbond-atc-form" method="post" enctype="multipart/form-data" data-product-type="simple" data-product-id="' . esc_attr( (string) $product->get_id() ) . '">';
+		echo '<input type="hidden" name="add-to-cart" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="product_id" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="variation_id" value="0" />';
 		echo '<div class="aussbond-atc-notices" aria-live="polite"></div>';

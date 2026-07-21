@@ -163,10 +163,13 @@
 	}
 
 	function collectPayload( $form ) {
+		var productId = $form.find( '[name="product_id"]' ).first().val() || $form.data( 'product-id' ) || 0;
+
 		return {
 			action: config.action || 'aussbond_atc_add_to_cart',
 			nonce: config.nonce || '',
-			product_id: $form.find( '[name="product_id"]' ).first().val() || $form.data( 'product-id' ) || 0,
+			'add-to-cart': productId,
+			product_id: productId,
 			variation_id: $form.find( '[name="variation_id"]' ).first().val() || 0,
 			quantity: $form.find( '[name="quantity"]' ).first().val() || 1,
 			attributes: collectAttributes( $form )

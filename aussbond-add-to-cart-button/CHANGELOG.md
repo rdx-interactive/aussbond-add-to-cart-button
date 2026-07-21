@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.9 - 2026-07-21
+
+- Fixed simple-product AJAX add-to-cart compatibility by calling WooCommerce's validation filter with the same arguments WooCommerce uses for simple products.
+- Added a native `add-to-cart` hidden field to the simple product form so the button has a browser-submit fallback if custom AJAX is blocked by a theme, cache layer, or script conflict.
+- Added the `add-to-cart` product ID to the AJAX payload for closer compatibility with WooCommerce add-to-cart integrations.
+
 ## 1.0.8 - 2026-05-30
 
 - Renamed the user-facing plugin name and Elementor widget title to `Aussbond Add-to-Cart Button`.

@@ -106,21 +106,32 @@ final class Ajax {
 			$this->send_error( $stock_error );
 		}
 
-		$passed_validation = apply_filters(
-			'woocommerce_add_to_cart_validation',
-			true,
-			$product_id,
-			$quantity,
-			$variation_id,
-			$attributes
-		);
+		if ( 0 < $variation_id ) {
+			$passed_validation = apply_filters(
+				'woocommerce_add_to_cart_validation',
+				true,
+				$product_id,
+				$quantity,
+				$variation_id,
+				$attributes
+			);
+		} else {
+			$passed_validation = apply_filters(
+				'woocommerce_add_to_cart_validation',
+				true,
+				$product_id,
+				$quantity
+			);
+		}
 
 		if ( ! $passed_validation ) {
 			remove_filter( 'woocommerce_product_is_in_stock', $stock_filter, 10 );
 			$this->send_error_from_notices();
 		}
 
-		$cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes );
+		$cart_item_key = 0 < $variation_id
+			? WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes )
+			: WC()->cart->add_to_cart( $product_id, $quantity );
 
 		remove_filter( 'woocommerce_product_is_in_stock', $stock_filter, 10 );
 
