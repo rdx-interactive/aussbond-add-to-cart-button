@@ -943,7 +943,7 @@ final class Elementor_Widget extends Widget_Base {
 			$this->render_simple_attributes( $product );
 		}
 
-		echo '<form class="cart aussbond-atc-form" method="post" enctype="multipart/form-data" data-product-type="simple" data-product-id="' . esc_attr( (string) $product->get_id() ) . '">';
+		echo '<form class="cart aussbond-atc-form" method="post" enctype="multipart/form-data" action="' . esc_url( $product->get_permalink() ) . '" data-product-type="simple" data-product-id="' . esc_attr( (string) $product->get_id() ) . '">';
 		echo '<input type="hidden" name="add-to-cart" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="product_id" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="variation_id" value="0" />';
@@ -1005,7 +1005,7 @@ final class Elementor_Widget extends Widget_Base {
 		$variations_json = wp_json_encode( $available_variations );
 		$variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : esc_attr( $variations_json );
 
-		echo '<form class="variations_form cart aussbond-atc-form" method="post" enctype="multipart/form-data" data-product-type="variable" data-product-id="' . esc_attr( (string) $product->get_id() ) . '" data-product_variations="' . $variations_attr . '">';
+		echo '<form class="variations_form cart aussbond-atc-form" method="post" enctype="multipart/form-data" action="' . esc_url( $product->get_permalink() ) . '" data-product-type="variable" data-product-id="' . esc_attr( (string) $product->get_id() ) . '" data-product_variations="' . $variations_attr . '">';
 		echo '<div class="aussbond-atc-notices" aria-live="polite"></div>';
 		echo '<div class="aussbond-atc-attributes">';
 		$this->render_attribute_heading( $attribute_heading_text );

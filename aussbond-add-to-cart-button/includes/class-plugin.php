@@ -93,6 +93,7 @@ final class Plugin {
 				'action'  => Ajax::ACTION,
 				'refreshNonceAction' => Ajax::NONCE_ACTION_REFRESH,
 				'nonce'   => wp_create_nonce( Ajax::NONCE_ACTION ),
+				'useNativeSubmit' => is_user_logged_in(),
 				'i18n'    => array(
 					'adding'           => esc_html__( 'Adding...', 'aussbond-add-to-cart-button' ),
 					'chooseOptions'    => esc_html__( 'Please choose product options before adding this item to your cart.', 'aussbond-add-to-cart-button' ),

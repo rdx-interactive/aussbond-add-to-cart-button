@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.15 - 2026-07-21
+
+- Added a logged-in customer compatibility mode that allows the browser to submit the native WooCommerce product form instead of intercepting it for custom AJAX.
+- This lets wholesale, role-pricing, and cart-validation plugins handle add-to-cart through the same standard request path as the default WooCommerce button.
+- Added explicit form actions pointing to the product permalink for both simple and variable product forms.
+
 ## 1.0.14 - 2026-07-21
 
 - Posted selected variation attributes as top-level WooCommerce form fields such as `attribute_pa_size` in addition to the plugin's nested `attributes` payload.

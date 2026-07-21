@@ -389,6 +389,11 @@
 					return;
 				}
 
+				if ( config.useNativeSubmit ) {
+					resolveSelectedVariation( $( form ) );
+					return;
+				}
+
 				event.preventDefault();
 				event.stopPropagation();
 
