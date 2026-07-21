@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.13 - 2026-07-21
+
+- Added a lightweight AJAX nonce refresh endpoint for the current visitor/session.
+- The frontend now refreshes the nonce immediately before add-to-cart submission, preventing cached guest/product-page nonces from blocking logged-in wholesale customer cart requests.
+- Keeps the existing add-to-cart nonce validation while making it resilient to page cache and role-based login sessions.
+
 ## 1.0.12 - 2026-07-21
 
 - Fixed default/preselected variable products by resolving the selected variation during PHP render.

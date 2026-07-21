@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Ajax {
 	public const ACTION       = 'aussbond_atc_add_to_cart';
+	public const NONCE_ACTION_REFRESH = 'aussbond_atc_refresh_nonce';
 	public const NONCE_ACTION = 'aussbond_atc_nonce';
 
 	/**
@@ -40,6 +41,19 @@ final class Ajax {
 	private function __construct() {
 		add_action( 'wp_ajax_' . self::ACTION, array( $this, 'add_to_cart' ) );
 		add_action( 'wp_ajax_nopriv_' . self::ACTION, array( $this, 'add_to_cart' ) );
+		add_action( 'wp_ajax_' . self::NONCE_ACTION_REFRESH, array( $this, 'refresh_nonce' ) );
+		add_action( 'wp_ajax_nopriv_' . self::NONCE_ACTION_REFRESH, array( $this, 'refresh_nonce' ) );
+	}
+
+	/**
+	 * Return a fresh nonce for the current visitor/session.
+	 */
+	public function refresh_nonce(): void {
+		wp_send_json_success(
+			array(
+				'nonce' => wp_create_nonce( self::NONCE_ACTION ),
+			)
+		);
 	}
 
 	/**

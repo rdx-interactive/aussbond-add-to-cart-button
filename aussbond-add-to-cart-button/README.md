@@ -1,6 +1,6 @@
 # Aussbond Add-to-Cart Button
 
-Version: 1.0.12
+Version: 1.0.13
 
 A production-ready WooCommerce add-to-cart Elementor widget for simple and variable products. The widget renders product options, quantity controls, a customizable add-to-cart button, AJAX cart submission, WooCommerce notices, and mini-cart fragment refreshes without a page reload.
 
@@ -24,7 +24,7 @@ Official references checked:
 ## Installation
 
 1. In WordPress admin, go to Plugins > Add New > Upload Plugin.
-2. Upload `aussbond-add-to-cart-button-v1.0.12.zip`.
+2. Upload `aussbond-add-to-cart-button-v1.0.13.zip`.
 3. Activate the plugin.
 4. Make sure WooCommerce and Elementor are active.
 
@@ -61,6 +61,7 @@ The plugin includes:
 
 This plugin follows semantic versioning.
 
+- `1.0.13`: Added a fresh AJAX nonce refresh before add-to-cart submission to support logged-in wholesale customers on cached product pages.
 - `1.0.12`: Fixed preselected/default variable products by rendering the matching variation ID and enabled button state server-side before frontend variation scripts run.
 - `1.0.11`: Fixed variable-product submissions when a variation option is visibly selected but WooCommerce has not populated the hidden variation ID before the custom AJAX submit runs.
 - `1.0.10`: Fixed live AJAX add-to-cart registration so cart requests are handled whenever WooCommerce is active, even if Elementor has not finished loading during admin-ajax requests.

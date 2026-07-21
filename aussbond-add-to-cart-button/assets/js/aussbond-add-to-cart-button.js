@@ -274,15 +274,24 @@
 			return;
 		}
 
-		var payload = collectPayload( $form );
-
-		if ( ! validateBeforeSubmit( $form, payload ) ) {
-			return;
-		}
-
 		clearNotices( $form );
 		$form.data( 'aussbondPending', true );
 		setButtonLoading( $form, true );
+
+		refreshNonce()
+			.always( function () {
+				submitPayload( $form );
+			} );
+	}
+
+	function submitPayload( $form ) {
+		var payload = collectPayload( $form );
+
+		if ( ! validateBeforeSubmit( $form, payload ) ) {
+			$form.data( 'aussbondPending', false );
+			setButtonLoading( $form, false );
+			return;
+		}
 
 		$.ajax( {
 			type: 'POST',
@@ -305,6 +314,25 @@
 				$form.data( 'aussbondPending', false );
 				setButtonLoading( $form, false );
 			} );
+	}
+
+	function refreshNonce() {
+		if ( ! config.ajaxUrl || ! config.refreshNonceAction ) {
+			return $.Deferred().resolve().promise();
+		}
+
+		return $.ajax( {
+			type: 'POST',
+			url: config.ajaxUrl,
+			data: {
+				action: config.refreshNonceAction
+			},
+			dataType: 'json'
+		} ).done( function ( response ) {
+			if ( response && response.success && response.data && response.data.nonce ) {
+				config.nonce = response.data.nonce;
+			}
+		} );
 	}
 
 	function handleSuccess( $form, data ) {

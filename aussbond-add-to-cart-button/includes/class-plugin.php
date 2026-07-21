@@ -91,6 +91,7 @@ final class Plugin {
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'action'  => Ajax::ACTION,
+				'refreshNonceAction' => Ajax::NONCE_ACTION_REFRESH,
 				'nonce'   => wp_create_nonce( Ajax::NONCE_ACTION ),
 				'i18n'    => array(
 					'adding'           => esc_html__( 'Adding...', 'aussbond-add-to-cart-button' ),
