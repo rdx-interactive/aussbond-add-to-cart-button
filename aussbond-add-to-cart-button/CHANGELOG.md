@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.12 - 2026-07-21
+
+- Fixed default/preselected variable products by resolving the selected variation during PHP render.
+- The hidden `variation_id` field now starts with the matching variation ID when all variation attributes are selected.
+- The button now renders with the selected variation's enabled/disabled and backorder label state before frontend JavaScript runs.
+
 ## 1.0.11 - 2026-07-21
 
 - Fixed variable-product add-to-cart when a variation attribute is already selected but the hidden WooCommerce `variation_id` field is still `0`.

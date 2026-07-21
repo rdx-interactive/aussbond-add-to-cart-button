@@ -992,6 +992,10 @@ final class Elementor_Widget extends Widget_Base {
 	private function render_variable_form( \WC_Product_Variable $product, string $button_text, string $backorder_text, string $attribute_heading_text, bool $show_attribute_labels ): void {
 		$available_variations = $this->get_available_variations_data( $product, $button_text, $backorder_text );
 		$attributes           = $product->get_variation_attributes();
+		$initial_variation    = $this->get_initial_selected_variation( $product, $attributes );
+		$button_product       = $initial_variation ?: $product;
+		$button_label         = $initial_variation ? $this->get_product_button_label( $initial_variation, $button_text, $backorder_text ) : $button_text;
+		$is_disabled          = ! $initial_variation || ! $this->is_add_to_cart_allowed( $initial_variation );
 
 		if ( empty( $attributes ) || empty( $available_variations ) ) {
 			$this->render_editor_notice( __( 'No purchasable variations are available for this product.', 'aussbond-add-to-cart-button' ) );
@@ -1013,18 +1017,18 @@ final class Elementor_Widget extends Widget_Base {
 		echo '<div class="aussbond-atc-quantity">';
 		woocommerce_quantity_input(
 			array(
-				'min_value'   => max( 1, $product->get_min_purchase_quantity() ),
-				'max_value'   => $product->get_max_purchase_quantity(),
-				'input_value' => max( 1, $product->get_min_purchase_quantity() ),
+				'min_value'   => max( 1, $button_product->get_min_purchase_quantity() ),
+				'max_value'   => $button_product->get_max_purchase_quantity(),
+				'input_value' => max( 1, $button_product->get_min_purchase_quantity() ),
 			),
-			$product
+			$button_product
 		);
 		echo '</div>';
 		echo '<div class="aussbond-atc-actions">';
 		echo '<input type="hidden" name="add-to-cart" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="product_id" value="' . esc_attr( (string) $product->get_id() ) . '" />';
-		echo '<input type="hidden" name="variation_id" class="variation_id" value="0" />';
-		$this->render_button( $product, $button_text, $button_text, $backorder_text, true );
+		echo '<input type="hidden" name="variation_id" class="variation_id" value="' . esc_attr( $initial_variation ? (string) $initial_variation->get_id() : '0' ) . '" />';
+		$this->render_button( $button_product, $button_label, $button_text, $backorder_text, $is_disabled );
 		echo '</div>';
 		echo '</div>';
 		echo '</div>';
@@ -1260,6 +1264,45 @@ final class Elementor_Widget extends Widget_Base {
 		remove_filter( 'woocommerce_product_is_in_stock', $stock_filter, 10 );
 
 		return is_array( $variation_data ) ? $variation_data : array();
+	}
+
+	/**
+	 * Resolve the variation selected by request/default attributes during server render.
+	 *
+	 * @param \WC_Product_Variable $product    Parent variable product.
+	 * @param array                $attributes Product variation attributes.
+	 */
+	private function get_initial_selected_variation( \WC_Product_Variable $product, array $attributes ): ?\WC_Product_Variation {
+		if ( empty( $attributes ) || ! class_exists( 'WC_Data_Store' ) ) {
+			return null;
+		}
+
+		$selected_attributes = array();
+
+		foreach ( $attributes as $attribute_name => $options ) {
+			$selected = $this->get_selected_attribute( $product, $attribute_name );
+
+			if ( '' === $selected ) {
+				return null;
+			}
+
+			$selected_attributes[ 'attribute_' . sanitize_title( $attribute_name ) ] = $selected;
+		}
+
+		$data_store   = \WC_Data_Store::load( 'product' );
+		$variation_id = $data_store ? absint( $data_store->find_matching_product_variation( $product, $selected_attributes ) ) : 0;
+
+		if ( 0 >= $variation_id ) {
+			return null;
+		}
+
+		$variation = wc_get_product( $variation_id );
+
+		if ( ! $variation instanceof \WC_Product_Variation || $product->get_id() !== $variation->get_parent_id() ) {
+			return null;
+		}
+
+		return $variation;
 	}
 
 	/**
