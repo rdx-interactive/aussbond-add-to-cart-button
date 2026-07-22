@@ -5,7 +5,7 @@ Tags: woocommerce, elementor, add to cart, ajax cart, variable products
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.18
+Stable tag: 1.0.19
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ Yes. The plugin submits through WooCommerce's native product form flow for maxim
 Yes. WooCommerce cart fragments are refreshed after successful AJAX add-to-cart requests.
 
 == Changelog ==
+
+= 1.0.19 =
+
+Respect WooCommerce maximum purchase and backorder limits when rendering variation button states, so exhausted backorder variations are not submitted to the cart.
 
 = 1.0.18 =
 

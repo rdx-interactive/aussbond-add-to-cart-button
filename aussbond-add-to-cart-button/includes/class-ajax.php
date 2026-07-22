@@ -290,6 +290,10 @@ final class Ajax {
 
 		$max_purchase_quantity = $product->get_max_purchase_quantity();
 
+		if ( 0 === $max_purchase_quantity ) {
+			return 0;
+		}
+
 		if ( 0 < $max_purchase_quantity ) {
 			$quantity = min( $quantity, $max_purchase_quantity );
 		}
@@ -306,6 +310,10 @@ final class Ajax {
 	private function get_stock_validation_error( \WC_Product $product, $quantity ): string {
 		if ( ! $product->is_purchasable() ) {
 			return __( 'This product cannot be purchased.', 'aussbond-add-to-cart-button' );
+		}
+
+		if ( ! $this->has_purchase_capacity( $product, $quantity ) ) {
+			return __( 'This product has reached the maximum backorder limit.', 'aussbond-add-to-cart-button' );
 		}
 
 		if ( ! $this->is_add_to_cart_allowed( $product ) ) {
@@ -329,6 +337,7 @@ final class Ajax {
 			if (
 				$checked_product instanceof \WC_Product
 				&& (int) $checked_product->get_id() === (int) $target_product->get_id()
+				&& 0 !== $checked_product->get_max_purchase_quantity()
 				&& (
 					$checked_product->backorders_allowed()
 					|| ( $checked_product->managing_stock() && null !== $checked_product->get_stock_quantity() && 0 < (float) $checked_product->get_stock_quantity() )
@@ -347,12 +356,29 @@ final class Ajax {
 	 * @param \WC_Product $product Product or variation.
 	 */
 	private function is_add_to_cart_allowed( \WC_Product $product ): bool {
-		return $product->is_purchasable()
-			&& (
-				$product->is_in_stock()
-				|| $product->backorders_allowed()
-				|| ( $product->managing_stock() && null !== $product->get_stock_quantity() && 0 < (float) $product->get_stock_quantity() )
-			);
+		if ( ! $product->is_purchasable() || ! $this->has_purchase_capacity( $product, 1 ) ) {
+			return false;
+		}
+
+		return $product->is_in_stock()
+			|| $product->backorders_allowed()
+			|| ( $product->managing_stock() && null !== $product->get_stock_quantity() && 0 < (float) $product->get_stock_quantity() );
+	}
+
+	/**
+	 * Check WooCommerce purchase quantity limits before cart submission.
+	 *
+	 * @param \WC_Product $product  Product or variation.
+	 * @param int|float   $quantity Quantity to add.
+	 */
+	private function has_purchase_capacity( \WC_Product $product, $quantity ): bool {
+		$max_purchase_quantity = $product->get_max_purchase_quantity();
+
+		if ( 0 === $max_purchase_quantity ) {
+			return false;
+		}
+
+		return 0 > $max_purchase_quantity || $quantity <= $max_purchase_quantity;
 	}
 
 	/**

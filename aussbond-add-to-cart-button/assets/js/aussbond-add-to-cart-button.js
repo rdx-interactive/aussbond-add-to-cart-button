@@ -137,9 +137,11 @@
 			var inStock = false !== variation.aussbond_is_in_stock && false !== variation.is_in_stock;
 			var managingStock = true === variation.aussbond_managing_stock;
 			var stockQuantity = null === variation.aussbond_stock_quantity || 'undefined' === typeof variation.aussbond_stock_quantity ? null : Number( variation.aussbond_stock_quantity );
+			var maxPurchaseQuantity = 'undefined' === typeof variation.aussbond_max_purchase_quantity ? null : Number( variation.aussbond_max_purchase_quantity );
+			var purchaseLimitReached = 0 === maxPurchaseQuantity;
 
 			label = variation.aussbond_button_text || ( 'instock' === stockStatus ? buttonText : backorderText );
-			disabled = null === addable ? ( ! purchasable || ( ! inStock && ! backordersAllowed && ( ! managingStock || ! stockQuantity || 0 >= stockQuantity ) ) ) : ! addable;
+			disabled = null === addable ? ( purchaseLimitReached || ! purchasable || ( ! inStock && ! backordersAllowed && ( ! managingStock || ! stockQuantity || 0 >= stockQuantity ) ) ) : ( purchaseLimitReached || ! addable );
 
 			if ( disabled ) {
 				label = outOfStockText;

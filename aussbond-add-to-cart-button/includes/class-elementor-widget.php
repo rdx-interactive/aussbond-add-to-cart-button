@@ -1233,6 +1233,7 @@ final class Elementor_Widget extends Widget_Base {
 			$variation_data['aussbond_is_in_stock']        = $variation->is_in_stock();
 			$variation_data['aussbond_managing_stock']     = $variation->managing_stock();
 			$variation_data['aussbond_stock_quantity']     = $variation->get_stock_quantity();
+			$variation_data['aussbond_max_purchase_quantity'] = $variation->get_max_purchase_quantity();
 
 			$variation_data['is_in_stock'] = $is_addable;
 		}
@@ -1379,12 +1380,13 @@ final class Elementor_Widget extends Widget_Base {
 	 * @param \WC_Product $product Product or variation.
 	 */
 	private function is_add_to_cart_allowed( \WC_Product $product ): bool {
-		return $product->is_purchasable()
-			&& (
-				$product->is_in_stock()
-				|| $product->backorders_allowed()
-				|| $this->has_managed_stock_available( $product )
-			);
+		if ( ! $product->is_purchasable() || ! $this->has_purchase_capacity( $product, 1 ) ) {
+			return false;
+		}
+
+		return $product->is_in_stock()
+			|| $product->backorders_allowed()
+			|| $this->has_managed_stock_available( $product );
 	}
 
 	/**
@@ -1393,7 +1395,23 @@ final class Elementor_Widget extends Widget_Base {
 	 * @param \WC_Product $product Product or variation.
 	 */
 	private function is_backorder_button_state( \WC_Product $product ): bool {
-		return $product->backorders_allowed() && ! $product->has_enough_stock( 1 );
+		return $this->is_add_to_cart_allowed( $product ) && $product->backorders_allowed() && ! $product->has_enough_stock( 1 );
+	}
+
+	/**
+	 * Check WooCommerce purchase quantity limits before enabling add-to-cart.
+	 *
+	 * @param \WC_Product $product  Product or variation.
+	 * @param int|float   $quantity Quantity to add.
+	 */
+	private function has_purchase_capacity( \WC_Product $product, $quantity ): bool {
+		$max_purchase_quantity = $product->get_max_purchase_quantity();
+
+		if ( 0 === $max_purchase_quantity ) {
+			return false;
+		}
+
+		return 0 > $max_purchase_quantity || $quantity <= $max_purchase_quantity;
 	}
 
 	/**

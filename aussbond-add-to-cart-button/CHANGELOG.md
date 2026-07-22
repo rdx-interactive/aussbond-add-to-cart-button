@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.19 - 2026-07-22
+
+- Added WooCommerce maximum purchase quantity metadata to variation data.
+- Disabled add-to-cart for variations whose purchase capacity is already zero, including exhausted backorder-limit cases.
+- Updated the fallback AJAX validator to return a clear maximum backorder limit error before calling WooCommerce cart insertion.
+
 ## 1.0.18 - 2026-07-22
 
 - Removed the `single_add_to_cart_button` class from the custom button so WooLentor's AJAX add-to-cart script does not treat it as its own AJAX target.
