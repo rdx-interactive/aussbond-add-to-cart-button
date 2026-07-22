@@ -334,17 +334,29 @@
 			type: 'POST',
 			url: config.ajaxUrl || '',
 			data: payload,
-			dataType: 'json'
+			dataType: 'text'
 		} )
-			.done( function ( response ) {
+			.done( function ( responseText, textStatus, jqXHR ) {
+				var response = parseJsonResponse( responseText );
+
 				if ( response && response.success ) {
 					handleSuccess( $form, response.data || {} );
 					return;
 				}
 
-				handleError( $form, response );
+				if ( isRedirectedAddToCartSuccess( jqXHR, textStatus, responseText ) ) {
+					handleSuccess( $form, {} );
+					return;
+				}
+
+				handleError( $form, response || null );
 			} )
-			.fail( function ( jqXHR ) {
+			.fail( function ( jqXHR, textStatus ) {
+				if ( isRedirectedAddToCartSuccess( jqXHR, textStatus, jqXHR.responseText || '' ) ) {
+					handleSuccess( $form, {} );
+					return;
+				}
+
 				handleError( $form, jqXHR.responseJSON || null );
 			} )
 			.always( function () {
@@ -376,6 +388,31 @@
 		clearNotices( $form );
 		showPopupNotice( data.message || i18n.addedToCart || 'Product added to cart.', 'success' );
 		updateFragments( data.fragments || {}, data.cart_hash || '', getButton( $form ) );
+	}
+
+	function parseJsonResponse( responseText ) {
+		if ( ! responseText ) {
+			return null;
+		}
+
+		try {
+			return JSON.parse( responseText );
+		} catch ( error ) {
+			return null;
+		}
+	}
+
+	function isRedirectedAddToCartSuccess( jqXHR, textStatus, responseText ) {
+		var response = responseText ? String( responseText ) : '';
+		var responseUrl = jqXHR && jqXHR.responseURL ? String( jqXHR.responseURL ) : '';
+
+		return 200 === Number( jqXHR && jqXHR.status )
+			&& ( 'success' === String( textStatus ) || 'parsererror' === String( textStatus ) )
+			&& (
+				-1 !== responseUrl.indexOf( '/checkout' )
+				|| -1 !== response.indexOf( 'Checkout' )
+				|| -1 !== response.indexOf( 'woocommerce-checkout' )
+			);
 	}
 
 	function handleError( $form, response ) {

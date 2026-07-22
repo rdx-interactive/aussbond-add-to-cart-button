@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.23 - 2026-07-22
+
+- Detects successful AJAX add-to-cart responses that are converted into checkout-page HTML by another plugin redirect.
+- Shows the single success popup and triggers WooCommerce cart fragment refresh for that redirected response.
+
 ## 1.0.22 - 2026-07-22
 
 - Applies the WooLentor Backorder compatibility bypass immediately before AJAX validation and cart insertion.

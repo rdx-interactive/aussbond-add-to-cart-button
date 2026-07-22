@@ -41,6 +41,7 @@ final class Compatibility {
 	 */
 	private function __construct() {
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'mark_aussbond_cart_item' ), 1, 4 );
+		add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'disable_add_to_cart_redirect' ), PHP_INT_MAX );
 		add_action( 'wp_loaded', array( $this, 'bypass_woolentor_backorder_limit_for_submit' ), 1 );
 		add_action( 'woocommerce_check_cart_items', array( $this, 'bypass_woolentor_backorder_limit_for_marked_cart_items' ), 1 );
 
@@ -71,6 +72,16 @@ final class Compatibility {
 		}
 
 		return $cart_item_data;
+	}
+
+	/**
+	 * Disable WooCommerce add-to-cart redirects for this plugin's AJAX request.
+	 *
+	 * @param string|false $url Redirect URL.
+	 * @return string|false
+	 */
+	public function disable_add_to_cart_redirect( $url ) {
+		return $this->is_aussbond_ajax_request() ? false : $url;
 	}
 
 	/**
@@ -125,5 +136,12 @@ final class Compatibility {
 		}
 
 		return '1' === (string) $value;
+	}
+
+	/**
+	 * Check whether the current request is this plugin's AJAX add-to-cart call.
+	 */
+	private function is_aussbond_ajax_request(): bool {
+		return wp_doing_ajax() && $this->is_aussbond_add_to_cart_request();
 	}
 }
