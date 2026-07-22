@@ -100,6 +100,7 @@ final class Plugin {
 					'genericError'     => esc_html__( 'Something went wrong. Please try again.', 'aussbond-add-to-cart-button' ),
 					'duplicateRequest' => esc_html__( 'Please wait a moment before submitting again.', 'aussbond-add-to-cart-button' ),
 					'outOfStock'       => esc_html__( 'Out of Stock', 'aussbond-add-to-cart-button' ),
+					'addedToCart'      => esc_html__( 'Product added to cart.', 'aussbond-add-to-cart-button' ),
 				),
 			)
 		);

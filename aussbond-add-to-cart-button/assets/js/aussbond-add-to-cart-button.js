@@ -5,6 +5,7 @@
 	var i18n = config.i18n || {};
 	var captureAttached = false;
 	var clickCaptureAttached = false;
+	var toastTimer = null;
 
 	function initScope( scope ) {
 		var $scope = scope ? $( scope ) : $( document );
@@ -82,6 +83,32 @@
 		if ( html ) {
 			$notices.html( html );
 		}
+	}
+
+	function showPopupNotice( message, type ) {
+		var $toast = $( '.aussbond-atc-toast' ).first();
+
+		if ( ! $toast.length ) {
+			$toast = $( '<div class="aussbond-atc-toast" role="status" aria-live="polite"></div>' );
+			$( document.body ).append( $toast );
+		}
+
+		$toast
+			.removeClass( 'aussbond-atc-toast--success aussbond-atc-toast--error is-visible' )
+			.addClass( 'aussbond-atc-toast--' + ( type || 'success' ) )
+			.text( message );
+
+		window.setTimeout( function () {
+			$toast.addClass( 'is-visible' );
+		}, 10 );
+
+		if ( toastTimer ) {
+			window.clearTimeout( toastTimer );
+		}
+
+		toastTimer = window.setTimeout( function () {
+			$toast.removeClass( 'is-visible' );
+		}, 3600 );
 	}
 
 	function setButtonLoading( $form, isLoading ) {
@@ -345,17 +372,9 @@
 		} );
 	}
 
-	function nativeSubmitForm( form ) {
-		if ( window.HTMLFormElement && window.HTMLFormElement.prototype.submit ) {
-			window.HTMLFormElement.prototype.submit.call( form );
-			return;
-		}
-
-		form.submit();
-	}
-
 	function handleSuccess( $form, data ) {
-		writeNotices( $form, data.messages || '' );
+		clearNotices( $form );
+		showPopupNotice( data.message || i18n.addedToCart || 'Product added to cart.', 'success' );
 		updateFragments( data.fragments || {}, data.cart_hash || '', getButton( $form ) );
 	}
 
@@ -402,7 +421,14 @@
 					return;
 				}
 
-				resolveSelectedVariation( $( form ) );
+				event.preventDefault();
+				event.stopPropagation();
+
+				if ( event.stopImmediatePropagation ) {
+					event.stopImmediatePropagation();
+				}
+
+				handleSubmit( $( form ) );
 			},
 			true
 		);
@@ -431,7 +457,6 @@
 				}
 
 				var $form = $( form );
-				var payload;
 
 				event.preventDefault();
 				event.stopPropagation();
@@ -441,14 +466,7 @@
 				}
 
 				initForm( $form );
-				resolveSelectedVariation( $form );
-				payload = collectPayload( $form );
-
-				if ( ! validateBeforeSubmit( $form, payload ) ) {
-					return;
-				}
-
-				nativeSubmitForm( form );
+				handleSubmit( $form );
 			},
 			true
 		);

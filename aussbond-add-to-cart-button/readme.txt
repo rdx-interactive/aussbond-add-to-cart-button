@@ -5,7 +5,7 @@ Tags: woocommerce, elementor, add to cart, ajax cart, variable products
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.20
+Stable tag: 1.0.21
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,13 +30,17 @@ Yes. It renders WooCommerce variation attribute dropdowns and validates the sele
 
 = Does it refresh the page? =
 
-Yes. The plugin submits through WooCommerce's native product form flow for maximum compatibility with WooLentor, wholesale, role-pricing, and cart-validation plugins.
+No. The plugin adds products through AJAX and stays on the product page.
 
 = Does it update the mini cart? =
 
 Yes. WooCommerce cart fragments are refreshed after successful AJAX add-to-cart requests.
 
 == Changelog ==
+
+= 1.0.21 =
+
+Stopped redirecting after add-to-cart and replaced inline success notices with one popup message.
 
 = 1.0.20 =
 

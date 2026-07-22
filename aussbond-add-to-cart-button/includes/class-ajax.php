@@ -174,6 +174,7 @@ final class Ajax {
 		wp_send_json_success(
 			array(
 				'messages'  => wc_print_notices( true ),
+				'message'   => __( 'Product added to cart.', 'aussbond-add-to-cart-button' ),
 				'fragments' => $this->get_cart_fragments(),
 				'cart_hash' => WC()->cart->get_cart_hash(),
 			)

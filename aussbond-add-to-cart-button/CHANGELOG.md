@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.21 - 2026-07-22
+
+- Switched Aussbond button submissions back to the plugin AJAX endpoint to keep customers on the product page.
+- Added a single popup success message after the product is added to cart.
+- Kept the scoped WooLentor Backorder compatibility marker in the AJAX payload.
+
 ## 1.0.20 - 2026-07-22
 
 - Added a scoped WooLentor Backorder compatibility layer for Aussbond add-to-cart submissions.

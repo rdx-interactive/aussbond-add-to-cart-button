@@ -1,6 +1,6 @@
 # Aussbond Add-to-Cart Button
 
-Version: 1.0.20
+Version: 1.0.21
 
 A production-ready WooCommerce add-to-cart Elementor widget for simple and variable products. The widget renders product options, quantity controls, a customizable add-to-cart button, AJAX cart submission, WooCommerce notices, and mini-cart fragment refreshes without a page reload.
 
@@ -24,7 +24,7 @@ Official references checked:
 ## Installation
 
 1. In WordPress admin, go to Plugins > Add New > Upload Plugin.
-2. Upload `aussbond-add-to-cart-button-v1.0.20.zip`.
+2. Upload `aussbond-add-to-cart-button-v1.0.21.zip`.
 3. Activate the plugin.
 4. Make sure WooCommerce and Elementor are active.
 
@@ -41,7 +41,7 @@ Official references checked:
 - Simple products show quantity and the custom add-to-cart button.
 - Variable products show WooCommerce variation attribute dropdowns before the quantity and button.
 - The button text changes to the configured backorder label when the selected product or variation stock status is not `instock`.
-- Add-to-cart submits through WooCommerce's native product form flow to avoid conflicts with WooLentor and wholesale/cart-validation plugins.
+- Add-to-cart submits through AJAX, stays on the product page, and avoids WooLentor checkout redirects.
 - WooCommerce success/error notices are shown inside the widget.
 - WooCommerce mini-cart fragments are refreshed after a successful add-to-cart action.
 
@@ -61,6 +61,7 @@ The plugin includes:
 
 This plugin follows semantic versioning.
 
+- `1.0.21`: Stopped redirecting after add-to-cart and replaced inline success notices with one popup message.
 - `1.0.20`: Added scoped WooLentor Backorder compatibility so Aussbond button submissions are not blocked when WooLentor treats an empty backorder limit as 0 available.
 - `1.0.19`: Respect WooCommerce maximum purchase and backorder limits when rendering variation button states, so exhausted backorder variations are not submitted to the cart.
 - `1.0.18`: Fixed WooLentor AJAX add-to-cart conflicts by removing the standard WooCommerce AJAX button class and submitting the plugin form directly through the native WooCommerce product-page flow.

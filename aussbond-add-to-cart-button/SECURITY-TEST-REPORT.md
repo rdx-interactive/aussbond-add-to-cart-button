@@ -1,7 +1,7 @@
 # Basic Security Test Report
 
 Plugin: Aussbond Add-to-Cart Button
-Version: 1.0.20
+Version: 1.0.21
 Date: 2026-07-21
 
 Latest vulnerability check: 2026-05-30. See `VULNERABILITY-CHECK-2026-05-30.md`.
@@ -28,7 +28,7 @@ Reviewed the custom Elementor widget, WooCommerce AJAX add-to-cart handler, fron
 | Static vulnerability pattern scan | Pass | No direct SQL, command execution, file upload/write, unsafe deserialization, or remote request paths were found. |
 | Public vulnerability database check | Pass | No public WPScan/Wordfence search result was found for the custom plugin slug at the time of review. |
 | JavaScript syntax check | Pass | `node --check assets/js/aussbond-add-to-cart-button.js` completed successfully. |
-| Installable ZIP integrity | Pass | `unzip -t aussbond-add-to-cart-button-v1.0.20.zip` completed successfully. |
+| Installable ZIP integrity | Pass | `unzip -t aussbond-add-to-cart-button-v1.0.21.zip` completed successfully. |
 
 ## Residual Risk
 
