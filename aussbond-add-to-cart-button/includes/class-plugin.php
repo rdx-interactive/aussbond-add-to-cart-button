@@ -58,6 +58,7 @@ final class Plugin {
 	 */
 	public function boot(): void {
 		if ( $this->woocommerce_available() ) {
+			Compatibility::instance();
 			Ajax::instance();
 		}
 	}

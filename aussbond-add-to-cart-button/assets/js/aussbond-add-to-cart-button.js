@@ -255,6 +255,7 @@
 			product_id: productId,
 			variation_id: variation && variation.variation_id ? variation.variation_id : variationId,
 			quantity: $form.find( '[name="quantity"]' ).first().val() || 1,
+			aussbond_atc_request: '1',
 			attributes: attributes
 		};
 

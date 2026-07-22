@@ -947,6 +947,7 @@ final class Elementor_Widget extends Widget_Base {
 		echo '<input type="hidden" name="add-to-cart" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="product_id" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="variation_id" value="0" />';
+		echo '<input type="hidden" name="aussbond_atc_request" value="1" />';
 		echo '<div class="aussbond-atc-notices" aria-live="polite"></div>';
 		echo '<div class="aussbond-atc-purchase-row">';
 		echo '<div class="aussbond-atc-quantity">';
@@ -1028,6 +1029,7 @@ final class Elementor_Widget extends Widget_Base {
 		echo '<input type="hidden" name="add-to-cart" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="product_id" value="' . esc_attr( (string) $product->get_id() ) . '" />';
 		echo '<input type="hidden" name="variation_id" class="variation_id" value="' . esc_attr( $initial_variation ? (string) $initial_variation->get_id() : '0' ) . '" />';
+		echo '<input type="hidden" name="aussbond_atc_request" value="1" />';
 		$this->render_button( $button_product, $button_label, $button_text, $backorder_text, $is_disabled );
 		echo '</div>';
 		echo '</div>';

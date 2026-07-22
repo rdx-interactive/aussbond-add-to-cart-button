@@ -5,7 +5,7 @@ Tags: woocommerce, elementor, add to cart, ajax cart, variable products
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.19
+Stable tag: 1.0.20
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,10 @@ Yes. The plugin submits through WooCommerce's native product form flow for maxim
 Yes. WooCommerce cart fragments are refreshed after successful AJAX add-to-cart requests.
 
 == Changelog ==
+
+= 1.0.20 =
+
+Added scoped WooLentor Backorder compatibility so Aussbond button submissions are not blocked when WooLentor treats an empty backorder limit as 0 available.
 
 = 1.0.19 =
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.20 - 2026-07-22
+
+- Added a scoped WooLentor Backorder compatibility layer for Aussbond add-to-cart submissions.
+- Marks cart items added through this plugin so WooLentor's empty-limit backorder validation does not reject them later on cart checks.
+- Keeps the native WooCommerce product form submission path intact for WooLentor AJAX and wholesale compatibility.
+
 ## 1.0.19 - 2026-07-22
 
 - Added WooCommerce maximum purchase quantity metadata to variation data.
