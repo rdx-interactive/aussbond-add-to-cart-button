@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.25 - 2026-07-22
+
+- Overrides WooCommerce's frontend cart URL on pages using the Aussbond widget when the site points it to checkout.
+- Rewrites checkout-bound `View cart` notice links to the cart page after add-to-cart and fragment refreshes.
+
 ## 1.0.24 - 2026-07-22
 
 - Added a visible `View cart` link inside the add-to-cart success popup.

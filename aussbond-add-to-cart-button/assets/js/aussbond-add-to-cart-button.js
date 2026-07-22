@@ -82,13 +82,52 @@
 
 		if ( html ) {
 			$notices.html( html );
+			repairViewCartLinks( $notices );
 		}
+	}
+
+	function getCartUrl() {
+		var cartUrl = String( config.cartUrl || '/cart/' );
+
+		if ( -1 !== cartUrl.indexOf( '/checkout' ) ) {
+			cartUrl = '/cart/';
+		}
+
+		return cartUrl;
+	}
+
+	function forceCartUrlGlobals() {
+		var cartUrl = getCartUrl();
+
+		if ( window.wc_add_to_cart_params ) {
+			window.wc_add_to_cart_params.cart_url = cartUrl;
+			window.wc_add_to_cart_params.cart_redirect_after_add = 'no';
+		}
+
+		if ( window.wc_cart_fragments_params ) {
+			window.wc_cart_fragments_params.cart_url = cartUrl;
+		}
+	}
+
+	function repairViewCartLinks( scope ) {
+		var cartUrl = getCartUrl();
+		var $scope = scope ? $( scope ) : $( document );
+
+		$scope.find( 'a' ).addBack( 'a' ).each( function () {
+			var $link = $( this );
+			var href = String( $link.attr( 'href' ) || '' );
+			var label = $.trim( $link.text() ).toLowerCase();
+
+			if ( -1 !== href.indexOf( '/checkout' ) && ( 'view cart' === label || -1 !== label.indexOf( 'view cart' ) ) ) {
+				$link.attr( 'href', cartUrl );
+			}
+		} );
 	}
 
 	function showPopupNotice( $form, message, type ) {
 		var $wrapper = $form.closest( '.aussbond-atc' );
 		var $toast;
-		var cartUrl = String( config.cartUrl || '/cart/' );
+		var cartUrl = getCartUrl();
 		var viewCartText = String( $wrapper.data( 'view-cart-text' ) || i18n.viewCart || 'View cart' );
 
 		if ( ! $wrapper.length ) {
@@ -399,6 +438,7 @@
 		clearNotices( $form );
 		showPopupNotice( $form, data.message || i18n.addedToCart || 'Product added to cart.', 'success' );
 		updateFragments( data.fragments || {}, data.cart_hash || '', getButton( $form ) );
+		repairViewCartLinks( document );
 	}
 
 	function parseJsonResponse( responseText ) {
@@ -521,6 +561,8 @@
 	}
 
 	$( function () {
+		forceCartUrlGlobals();
+		repairViewCartLinks( document );
 		attachSubmitCapture();
 		attachButtonClickCapture();
 		initScope( document );
@@ -529,6 +571,8 @@
 	$( window ).on( 'elementor/frontend/init', function () {
 		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
 			window.elementorFrontend.hooks.addAction( 'frontend/element_ready/aussbond_add_to_cart_button.default', function ( $scope ) {
+				forceCartUrlGlobals();
+				repairViewCartLinks( document );
 				attachSubmitCapture();
 				attachButtonClickCapture();
 				initScope( $scope );

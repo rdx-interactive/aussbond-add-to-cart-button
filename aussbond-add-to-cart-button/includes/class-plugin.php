@@ -113,6 +113,7 @@ final class Plugin {
 	 */
 	private function get_cart_url(): string {
 		$cart_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'cart' ) : '';
+		$fallback_url = home_url( '/cart/' );
 
 		if ( empty( $cart_url ) && function_exists( 'wc_get_cart_url' ) ) {
 			$cart_url = wc_get_cart_url();
@@ -121,7 +122,7 @@ final class Plugin {
 		$path = is_string( $cart_url ) ? wp_parse_url( $cart_url, PHP_URL_PATH ) : '';
 
 		if ( empty( $cart_url ) || ( is_string( $path ) && preg_match( '#/checkout/?$#', $path ) ) ) {
-			$cart_url = home_url( '/cart/' );
+			$cart_url = $fallback_url;
 		}
 
 		return esc_url_raw( $cart_url );
