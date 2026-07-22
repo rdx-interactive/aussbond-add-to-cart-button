@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.24 - 2026-07-22
+
+- Added a visible `View cart` link inside the add-to-cart success popup.
+- Forces the popup link to the cart page instead of the checkout redirect URL.
+- Added Elementor style controls for the popup and the View cart link.
+
 ## 1.0.23 - 2026-07-22
 
 - Detects successful AJAX add-to-cart responses that are converted into checkout-page HTML by another plugin redirect.

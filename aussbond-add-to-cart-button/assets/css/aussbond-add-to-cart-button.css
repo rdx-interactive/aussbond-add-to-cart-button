@@ -215,19 +215,22 @@
 }
 
 .aussbond-atc-toast {
+	align-items: center;
 	background: #111827;
 	border-radius: 6px;
 	bottom: 24px;
 	box-shadow: 0 12px 30px rgba(15, 23, 42, 0.22);
 	color: #fff;
+	display: flex;
 	font-size: 15px;
 	font-weight: 600;
+	gap: 12px;
 	left: 50%;
 	line-height: 1.4;
 	max-width: min(420px, calc(100vw - 32px));
 	opacity: 0;
 	padding: 14px 18px;
-	pointer-events: none;
+	pointer-events: auto;
 	position: fixed;
 	text-align: center;
 	transform: translate(-50%, 12px);
@@ -249,7 +252,41 @@
 	background: #991b1b;
 }
 
+.aussbond-atc-toast__message {
+	min-width: 0;
+}
+
+.aussbond-atc-toast__link {
+	background: #fff;
+	border-radius: 4px;
+	color: #111827;
+	display: inline-flex;
+	flex: 0 0 auto;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.2;
+	padding: 8px 12px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.aussbond-atc-toast__link:hover,
+.aussbond-atc-toast__link:focus {
+	color: #111827;
+	text-decoration: underline;
+}
+
 @media (max-width: 480px) {
+	.aussbond-atc-toast {
+		align-items: stretch;
+		flex-direction: column;
+		width: calc(100vw - 32px);
+	}
+
+	.aussbond-atc-toast__link {
+		justify-content: center;
+	}
+
 	.aussbond-atc-simple-attributes {
 		grid-template-columns: 1fr;
 	}

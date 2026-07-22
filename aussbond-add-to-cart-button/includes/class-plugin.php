@@ -91,6 +91,7 @@ final class Plugin {
 			'AussbondATC',
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'cartUrl' => $this->get_cart_url(),
 				'action'  => Ajax::ACTION,
 				'refreshNonceAction' => Ajax::NONCE_ACTION_REFRESH,
 				'nonce'   => wp_create_nonce( Ajax::NONCE_ACTION ),
@@ -101,9 +102,29 @@ final class Plugin {
 					'duplicateRequest' => esc_html__( 'Please wait a moment before submitting again.', 'aussbond-add-to-cart-button' ),
 					'outOfStock'       => esc_html__( 'Out of Stock', 'aussbond-add-to-cart-button' ),
 					'addedToCart'      => esc_html__( 'Product added to cart.', 'aussbond-add-to-cart-button' ),
+					'viewCart'         => esc_html__( 'View cart', 'aussbond-add-to-cart-button' ),
 				),
 			)
 		);
+	}
+
+	/**
+	 * Resolve the cart page URL and avoid checkout redirects for the popup link.
+	 */
+	private function get_cart_url(): string {
+		$cart_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'cart' ) : '';
+
+		if ( empty( $cart_url ) && function_exists( 'wc_get_cart_url' ) ) {
+			$cart_url = wc_get_cart_url();
+		}
+
+		$path = is_string( $cart_url ) ? wp_parse_url( $cart_url, PHP_URL_PATH ) : '';
+
+		if ( empty( $cart_url ) || ( is_string( $path ) && preg_match( '#/checkout/?$#', $path ) ) ) {
+			$cart_url = home_url( '/cart/' );
+		}
+
+		return esc_url_raw( $cart_url );
 	}
 
 	/**

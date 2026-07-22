@@ -76,6 +76,7 @@ final class Elementor_Widget extends Widget_Base {
 		$this->register_heading_style_controls();
 		$this->register_layout_style_controls();
 		$this->register_button_style_controls();
+		$this->register_popup_style_controls();
 		$this->register_quantity_style_controls();
 		$this->register_attribute_style_controls();
 	}
@@ -95,6 +96,7 @@ final class Elementor_Widget extends Widget_Base {
 		$show_variation_attribute_labels = 'yes' === ( $settings['show_variation_attribute_labels'] ?? '' );
 		$button_text    = $this->get_safe_label( $settings, 'button_text', __( 'Add to Cart', 'aussbond-add-to-cart-button' ) );
 		$backorder_text = $this->get_safe_label( $settings, 'backorder_button_text', __( 'Back Order', 'aussbond-add-to-cart-button' ) );
+		$view_cart_text = $this->get_safe_label( $settings, 'view_cart_text', __( 'View cart', 'aussbond-add-to-cart-button' ) );
 
 		if ( ! $product ) {
 			$this->render_editor_notice( __( 'Select a valid WooCommerce product ID, or place this widget on a product page/template.', 'aussbond-add-to-cart-button' ) );
@@ -112,6 +114,7 @@ final class Elementor_Widget extends Widget_Base {
 				'class'           => array( 'aussbond-atc', 'aussbond-atc--' . sanitize_html_class( $product->get_type() ) ),
 				'data-widget-id'  => esc_attr( $this->get_id() ),
 				'data-product-id' => esc_attr( (string) $product->get_id() ),
+				'data-view-cart-text' => esc_attr( $view_cart_text ),
 			)
 		);
 
@@ -200,6 +203,16 @@ final class Elementor_Widget extends Widget_Base {
 				'label'   => esc_html__( 'Back Order Button Text', 'aussbond-add-to-cart-button' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'Back Order', 'aussbond-add-to-cart-button' ),
+				'dynamic' => array( 'active' => true ),
+			)
+		);
+
+		$this->add_control(
+			'view_cart_text',
+			array(
+				'label'   => esc_html__( 'Popup View Cart Text', 'aussbond-add-to-cart-button' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'View cart', 'aussbond-add-to-cart-button' ),
 				'dynamic' => array( 'active' => true ),
 			)
 		);
@@ -632,6 +645,153 @@ final class Elementor_Widget extends Widget_Base {
 				'name'     => 'button_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'aussbond-add-to-cart-button' ),
 				'selector' => '{{WRAPPER}} .aussbond-atc .aussbond-atc-button.aussbond-atc-button',
+			)
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Register add-to-cart popup styling controls.
+	 */
+	private function register_popup_style_controls(): void {
+		$this->start_controls_section(
+			'section_popup_style',
+			array(
+				'label' => esc_html__( 'Added Popup', 'aussbond-add-to-cart-button' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'popup_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'aussbond-add-to-cart-button' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#166534',
+				'selectors' => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'popup_text_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'aussbond-add-to-cart-button' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'popup_typography',
+				'label'    => esc_html__( 'Typography', 'aussbond-add-to-cart-button' ),
+				'selector' => '{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast',
+			)
+		);
+
+		$this->add_responsive_control(
+			'popup_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'aussbond-add-to-cart-button' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'popup_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'aussbond-add-to-cart-button' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'popup_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'aussbond-add-to-cart-button' ),
+				'selector' => '{{WRAPPER}} .aussbond-atc .aussbond-atc-toast.aussbond-atc-toast',
+			)
+		);
+
+		$this->add_control(
+			'popup_link_heading',
+			array(
+				'label'     => esc_html__( 'View Cart Link', 'aussbond-add-to-cart-button' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'popup_link_text_color',
+			array(
+				'label'     => esc_html__( 'Text Color', 'aussbond-add-to-cart-button' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#111827',
+				'selectors' => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast__link' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'popup_link_background_color',
+			array(
+				'label'     => esc_html__( 'Background Color', 'aussbond-add-to-cart-button' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast__link' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'popup_link_typography',
+				'label'    => esc_html__( 'Typography', 'aussbond-add-to-cart-button' ),
+				'selector' => '{{WRAPPER}} .aussbond-atc .aussbond-atc-toast__link',
+			)
+		);
+
+		$this->add_responsive_control(
+			'popup_link_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'aussbond-add-to-cart-button' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast__link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'popup_link_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'aussbond-add-to-cart-button' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .aussbond-atc .aussbond-atc-toast__link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
 			)
 		);
 

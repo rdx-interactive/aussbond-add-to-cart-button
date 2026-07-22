@@ -85,18 +85,29 @@
 		}
 	}
 
-	function showPopupNotice( message, type ) {
-		var $toast = $( '.aussbond-atc-toast' ).first();
+	function showPopupNotice( $form, message, type ) {
+		var $wrapper = $form.closest( '.aussbond-atc' );
+		var $toast;
+		var cartUrl = String( config.cartUrl || '/cart/' );
+		var viewCartText = String( $wrapper.data( 'view-cart-text' ) || i18n.viewCart || 'View cart' );
+
+		if ( ! $wrapper.length ) {
+			$wrapper = $( document.body );
+		}
+
+		$toast = $wrapper.find( '.aussbond-atc-toast' ).first();
 
 		if ( ! $toast.length ) {
 			$toast = $( '<div class="aussbond-atc-toast" role="status" aria-live="polite"></div>' );
-			$( document.body ).append( $toast );
+			$wrapper.append( $toast );
 		}
 
 		$toast
 			.removeClass( 'aussbond-atc-toast--success aussbond-atc-toast--error is-visible' )
 			.addClass( 'aussbond-atc-toast--' + ( type || 'success' ) )
-			.text( message );
+			.empty()
+			.append( $( '<span class="aussbond-atc-toast__message"></span>' ).text( message ) )
+			.append( $( '<a class="aussbond-atc-toast__link"></a>' ).attr( 'href', cartUrl ).text( viewCartText ) );
 
 		window.setTimeout( function () {
 			$toast.addClass( 'is-visible' );
@@ -386,7 +397,7 @@
 
 	function handleSuccess( $form, data ) {
 		clearNotices( $form );
-		showPopupNotice( data.message || i18n.addedToCart || 'Product added to cart.', 'success' );
+		showPopupNotice( $form, data.message || i18n.addedToCart || 'Product added to cart.', 'success' );
 		updateFragments( data.fragments || {}, data.cart_hash || '', getButton( $form ) );
 	}
 
