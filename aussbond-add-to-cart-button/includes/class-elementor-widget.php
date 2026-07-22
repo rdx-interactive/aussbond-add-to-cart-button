@@ -89,6 +89,11 @@ final class Elementor_Widget extends Widget_Base {
 			return;
 		}
 
+		if ( ! is_user_logged_in() ) {
+			$this->render_editor_notice( __( 'The Aussbond Add-to-Cart Button is visible only to logged-in users.', 'aussbond-add-to-cart-button' ) );
+			return;
+		}
+
 		$settings       = $this->get_settings_for_display();
 		$product        = $this->resolve_product( $settings );
 		$heading_text   = $this->get_safe_label( $settings, 'heading_text', __( 'Add to Cart', 'aussbond-add-to-cart-button' ) );

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.26 - 2026-07-22
+
+- Hides the Aussbond add-to-cart widget output from guest visitors.
+- Keeps an editor/admin notice so site editors understand why the widget is not visible while logged out.
+
 ## 1.0.25 - 2026-07-22
 
 - Overrides WooCommerce's frontend cart URL on pages using the Aussbond widget when the site points it to checkout.

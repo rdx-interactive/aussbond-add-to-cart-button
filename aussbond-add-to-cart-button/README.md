@@ -1,6 +1,6 @@
 # Aussbond Add-to-Cart Button
 
-Version: 1.0.25
+Version: 1.0.26
 
 A production-ready WooCommerce add-to-cart Elementor widget for simple and variable products. The widget renders product options, quantity controls, a customizable add-to-cart button, AJAX cart submission, WooCommerce notices, and mini-cart fragment refreshes without a page reload.
 
@@ -24,7 +24,7 @@ Official references checked:
 ## Installation
 
 1. In WordPress admin, go to Plugins > Add New > Upload Plugin.
-2. Upload `aussbond-add-to-cart-button-v1.0.25.zip`.
+2. Upload `aussbond-add-to-cart-button-v1.0.26.zip`.
 3. Activate the plugin.
 4. Make sure WooCommerce and Elementor are active.
 
@@ -43,6 +43,7 @@ Official references checked:
 - The button text changes to the configured backorder label when the selected product or variation stock status is not `instock`.
 - Add-to-cart submits through AJAX, stays on the product page, and avoids WooLentor checkout redirects.
 - The success popup includes a visible `View cart` link that points to the cart page.
+- The widget is visible only to logged-in users.
 - WooCommerce success/error notices are shown inside the widget.
 - WooCommerce mini-cart fragments are refreshed after a successful add-to-cart action.
 
@@ -62,6 +63,7 @@ The plugin includes:
 
 This plugin follows semantic versioning.
 
+- `1.0.26`: Show the add-to-cart button only for logged-in users.
 - `1.0.25`: Forced WooCommerce View cart links generated on Aussbond add-to-cart pages to use the cart page instead of the checkout redirect URL.
 - `1.0.24`: Added a visible View cart link to the success popup, pointed it to the cart page instead of checkout, and added Elementor popup/link style controls.
 - `1.0.23`: Shows the success popup and refreshes cart fragments when another plugin redirects a successful AJAX add-to-cart response to checkout HTML.
