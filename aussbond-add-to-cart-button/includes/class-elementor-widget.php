@@ -1159,7 +1159,7 @@ final class Elementor_Widget extends Widget_Base {
 	 * @param bool        $disabled       Disabled state.
 	 */
 	private function render_button( \WC_Product $product, string $label, string $button_text, string $backorder_text, bool $disabled ): void {
-		$classes = array( 'aussbond-atc-button', 'single_add_to_cart_button', 'button', 'alt' );
+		$classes = array( 'aussbond-atc-button', 'button', 'alt' );
 
 		if ( $disabled ) {
 			$classes[] = 'disabled';

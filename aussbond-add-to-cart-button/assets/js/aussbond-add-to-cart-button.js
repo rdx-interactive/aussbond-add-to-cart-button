@@ -4,6 +4,7 @@
 	var config = window.AussbondATC || {};
 	var i18n = config.i18n || {};
 	var captureAttached = false;
+	var clickCaptureAttached = false;
 
 	function initScope( scope ) {
 		var $scope = scope ? $( scope ) : $( document );
@@ -341,6 +342,15 @@
 		} );
 	}
 
+	function nativeSubmitForm( form ) {
+		if ( window.HTMLFormElement && window.HTMLFormElement.prototype.submit ) {
+			window.HTMLFormElement.prototype.submit.call( form );
+			return;
+		}
+
+		form.submit();
+	}
+
 	function handleSuccess( $form, data ) {
 		writeNotices( $form, data.messages || '' );
 		updateFragments( data.fragments || {}, data.cart_hash || '', getButton( $form ) );
@@ -395,8 +405,55 @@
 		);
 	}
 
+	function attachButtonClickCapture() {
+		if ( clickCaptureAttached || ! document.addEventListener ) {
+			return;
+		}
+
+		clickCaptureAttached = true;
+
+		document.addEventListener(
+			'click',
+			function ( event ) {
+				var button = event.target && event.target.closest ? event.target.closest( '.aussbond-atc-button' ) : null;
+
+				if ( ! button || button.disabled ) {
+					return;
+				}
+
+				var form = button.closest ? button.closest( '.aussbond-atc-form' ) : null;
+
+				if ( ! form ) {
+					return;
+				}
+
+				var $form = $( form );
+				var payload;
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				if ( event.stopImmediatePropagation ) {
+					event.stopImmediatePropagation();
+				}
+
+				initForm( $form );
+				resolveSelectedVariation( $form );
+				payload = collectPayload( $form );
+
+				if ( ! validateBeforeSubmit( $form, payload ) ) {
+					return;
+				}
+
+				nativeSubmitForm( form );
+			},
+			true
+		);
+	}
+
 	$( function () {
 		attachSubmitCapture();
+		attachButtonClickCapture();
 		initScope( document );
 	} );
 
@@ -404,6 +461,7 @@
 		if ( window.elementorFrontend && window.elementorFrontend.hooks ) {
 			window.elementorFrontend.hooks.addAction( 'frontend/element_ready/aussbond_add_to_cart_button.default', function ( $scope ) {
 				attachSubmitCapture();
+				attachButtonClickCapture();
 				initScope( $scope );
 			} );
 		}

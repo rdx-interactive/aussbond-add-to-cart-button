@@ -1,6 +1,6 @@
 # Aussbond Add-to-Cart Button
 
-Version: 1.0.17
+Version: 1.0.18
 
 A production-ready WooCommerce add-to-cart Elementor widget for simple and variable products. The widget renders product options, quantity controls, a customizable add-to-cart button, AJAX cart submission, WooCommerce notices, and mini-cart fragment refreshes without a page reload.
 
@@ -24,7 +24,7 @@ Official references checked:
 ## Installation
 
 1. In WordPress admin, go to Plugins > Add New > Upload Plugin.
-2. Upload `aussbond-add-to-cart-button-v1.0.17.zip`.
+2. Upload `aussbond-add-to-cart-button-v1.0.18.zip`.
 3. Activate the plugin.
 4. Make sure WooCommerce and Elementor are active.
 
@@ -41,7 +41,7 @@ Official references checked:
 - Simple products show quantity and the custom add-to-cart button.
 - Variable products show WooCommerce variation attribute dropdowns before the quantity and button.
 - The button text changes to the configured backorder label when the selected product or variation stock status is not `instock`.
-- AJAX add-to-cart uses WordPress nonce verification and WooCommerce cart APIs.
+- Add-to-cart submits through WooCommerce's native product form flow to avoid conflicts with WooLentor and wholesale/cart-validation plugins.
 - WooCommerce success/error notices are shown inside the widget.
 - WooCommerce mini-cart fragments are refreshed after a successful add-to-cart action.
 
@@ -61,6 +61,7 @@ The plugin includes:
 
 This plugin follows semantic versioning.
 
+- `1.0.18`: Fixed WooLentor AJAX add-to-cart conflicts by removing the standard WooCommerce AJAX button class and submitting the plugin form directly through the native WooCommerce product-page flow.
 - `1.0.17`: Switched all add-to-cart submissions to the native WooCommerce product form flow while keeping selected variation resolution before submit.
 - `1.0.16`: Explicitly persists WooCommerce cart totals, session, and cart cookies after successful AJAX add-to-cart to prevent accepted cart items from disappearing on the cart page.
 - `1.0.15`: Added a logged-in customer fallback to native WooCommerce form submission so wholesale plugins can process add-to-cart requests through the standard product-page flow.

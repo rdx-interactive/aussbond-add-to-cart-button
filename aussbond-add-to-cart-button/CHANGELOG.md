@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.18 - 2026-07-22
+
+- Removed the `single_add_to_cart_button` class from the custom button so WooLentor's AJAX add-to-cart script does not treat it as its own AJAX target.
+- Added a capture-phase click guard that resolves the selected variation, validates the selection, stops third-party click handlers, and submits the form through the browser's native form submit method.
+- Keeps the WooCommerce product form fields intact so WooCommerce, WooLentor, wholesale pricing, and role-validation plugins receive the standard product-page request.
+
 ## 1.0.17 - 2026-07-21
 
 - Stopped intercepting the product form submit event for custom AJAX.
