@@ -111,6 +111,8 @@ final class Ajax {
 		$quantity     = $this->normalize_quantity( $cart_item_product, $quantity );
 		$stock_filter = $this->get_managed_stock_filter( $cart_item_product );
 
+		Compatibility::instance()->disable_woolentor_backorder_limit_hooks();
+
 		add_filter( 'woocommerce_product_is_in_stock', $stock_filter, 10, 2 );
 
 		$stock_error = $this->get_stock_validation_error( $cart_item_product, $quantity );
@@ -142,6 +144,8 @@ final class Ajax {
 			remove_filter( 'woocommerce_product_is_in_stock', $stock_filter, 10 );
 			$this->send_error_from_notices();
 		}
+
+		Compatibility::instance()->disable_woolentor_backorder_limit_hooks();
 
 		$cart_item_key = 0 < $variation_id
 			? WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes )

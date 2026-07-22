@@ -45,7 +45,7 @@ final class Compatibility {
 		add_action( 'woocommerce_check_cart_items', array( $this, 'bypass_woolentor_backorder_limit_for_marked_cart_items' ), 1 );
 
 		if ( $this->is_aussbond_add_to_cart_request() ) {
-			$this->remove_woolentor_backorder_limit_hooks();
+			$this->disable_woolentor_backorder_limit_hooks();
 		}
 	}
 
@@ -78,7 +78,7 @@ final class Compatibility {
 	 */
 	public function bypass_woolentor_backorder_limit_for_submit(): void {
 		if ( $this->is_aussbond_add_to_cart_request() ) {
-			$this->remove_woolentor_backorder_limit_hooks();
+			$this->disable_woolentor_backorder_limit_hooks();
 		}
 	}
 
@@ -92,7 +92,7 @@ final class Compatibility {
 
 		foreach ( WC()->cart->get_cart() as $cart_item ) {
 			if ( ! empty( $cart_item[ self::CART_ITEM_BYPASS_KEY ] ) ) {
-				$this->remove_woolentor_backorder_limit_hooks();
+				$this->disable_woolentor_backorder_limit_hooks();
 				return;
 			}
 		}
@@ -101,7 +101,7 @@ final class Compatibility {
 	/**
 	 * Remove WooLentor Backorder hooks that reject empty/zero limit backorders.
 	 */
-	private function remove_woolentor_backorder_limit_hooks(): void {
+	public function disable_woolentor_backorder_limit_hooks(): void {
 		if ( ! class_exists( '\Woolentor_Backorder' ) || ! method_exists( '\Woolentor_Backorder', 'instance' ) ) {
 			return;
 		}

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.22 - 2026-07-22
+
+- Applies the WooLentor Backorder compatibility bypass immediately before AJAX validation and cart insertion.
+- Keeps the no-redirect AJAX behavior and single popup success message from version 1.0.21.
+
 ## 1.0.21 - 2026-07-22
 
 - Switched Aussbond button submissions back to the plugin AJAX endpoint to keep customers on the product page.
